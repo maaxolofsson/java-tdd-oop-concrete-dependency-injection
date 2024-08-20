@@ -20,7 +20,9 @@ class ComputerTest {
         PowerSupply myPsu = new PowerSupply();
         Computer myPc = new Computer(myPsu);
 
-        myPc.installGame("Final Fantasy XI");
+        Game g1 = new Game("Final Fantasy XI");
+
+        myPc.installGame(g1);
 
         Assertions.assertEquals(1, myPc.installedGames.size());
         Assertions.assertEquals("Final Fantasy XI", myPc.installedGames.get(0).name);
@@ -31,18 +33,22 @@ class ComputerTest {
         PowerSupply myPsu = new PowerSupply();
         Computer myPc = new Computer(myPsu);
 
-        myPc.installGame("Duck Game");
-        myPc.installGame("Dragon's Dogma: Dark Arisen");
+        Game g1 = new Game("Duck Game");
+        Game g2 = new Game("Dragon's Dogma: Dark Arisen");
+        Game g3 = new Game("Morrowind");
 
-        Assertions.assertEquals("Playing Duck Game", myPc.playGame("Duck Game"));
-        Assertions.assertEquals("Playing Dragon's Dogma: Dark Arisen", myPc.playGame("Dragon's Dogma: Dark Arisen"));
-        Assertions.assertEquals("Game not installed", myPc.playGame("Morrowind"));
+        myPc.installGame(g1);
+        myPc.installGame(g2);
+
+        Assertions.assertEquals("Playing Duck Game", myPc.playGame(g1));
+        Assertions.assertEquals("Playing Dragon's Dogma: Dark Arisen", myPc.playGame(g2));
+        Assertions.assertEquals("Game not installed", myPc.playGame(g3));
     }
 
     @Test
     public void canPreinstallGames() {
         PowerSupply myPsu = new PowerSupply();
-        ArrayList<Game> preInstalled = new ArrayList<>(){{
+        ArrayList<Game> preInstalled = new ArrayList<>() {{
             add(new Game("Dwarf Fortress"));
             add(new Game("Baldur's Gate"));
         }};
